@@ -1,5 +1,86 @@
 ---
 title: "Univariate Viz"
+number-sections: false
 ---
 
 Use this file for practice with the **univariate viz** in-class activity.  Refer to the class website for details.
+
+```{r}
+#| eval: true
+
+# Import data
+hikes <- read.csv("https://mac-stat.github.io/data/high_peaks.csv")
+```
+
+# Exercise 1
+```{r}
+head(hikes)
+```
+a. the `rating` variable might capture how many hiking trails correspond to each difficulty rating.
+b. the `elevation` variable might capture the range of elevations.
+
+# Exercise 2
+```{r}
+# Use the ggplot function
+# ggplot(hikes, aes(x = rating))
+```
+Take note of the error message.
+```{r}
+# Load the package
+library(tidyverse)
+```
+# Exercise 3
+```{r}
+# Set up the plotting frame of a bar chart
+ggplot(hikes, aes(x = rating))
+```
+- This created the basic frame for a chart, seperated into the rating categories.
+- The first argument of the `ggplot()` function declares the data set it should be drawing from.
+- `x = rating` makes the `rating` variable the x-axis.
+- `aes` stands for "aesthetics".
+
+# Exercise 4
+Try the following code chunks one by one, and take note of how the code and the corresponding chart changes.
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# adding a "geom_bar()" function to the code creates a bar plot
+ggplot(hikes, aes(x = rating)) +
+  geom_bar()
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# adding the "labs()" function creates labels, in this case on the x and y axes.
+ggplot(hikes, aes(x = rating)) +
+  geom_bar() +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# adding the "fill" argument to "geom_bar" colors the bars
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(fill = "blue") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# "color" sets the color of the bar's outline, while "fill" sets the color for the enclosed space
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "orange", fill = "blue") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# changed the theme of the graph, in this case, to minimal
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "orange", fill = "blue")  +
+  labs(x = "Rating", y = "Number of hikes") +
+  theme_minimal()
+```
+# Exercise 5
+Part a:
+- `+` allows additional functions/arguments to be added.
+- `geom` stands for "Geometry"
+- `labs` stands for "Labels"
+- `color` sets the outline color, while `fill` sets the color of the enclosed space.
+
+Part b:
