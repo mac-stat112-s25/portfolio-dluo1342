@@ -78,9 +78,33 @@ ggplot(hikes, aes(x = rating)) +
 ```
 # Exercise 5
 Part a:
+
 - `+` allows additional functions/arguments to be added.
 - `geom` stands for "Geometry"
 - `labs` stands for "Labels"
 - `color` sets the outline color, while `fill` sets the color of the enclosed space.
 
 Part b:
+
+- Observed variables: rating
+- Variability between categories: some categories are more common than others.
+- In this case, the moderate rating category is much more common than the other two difficulties. 
+
+Part c:
+
+- It would be nice if the ratings were arranged from easy to hard, regardless of how common the category is. 
+
+# Exercise 6:
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_bar()
+```
+- There's too many options/categories of elevation to effectively show distribution.
+
+# Exercise 7
+Part a:
+
+- 6 hikes have an elevation between 4500 and 4700 feet.
+- 2 hikes have an elevation of at least 5100 feet.
+
+

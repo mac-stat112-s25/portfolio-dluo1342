@@ -3,7 +3,7 @@ title: "Multivariate Viz"
 number-sections: false
 ---
 
-Use this file for practice with the **mulivariate viz** in-class activity.  Refer to the class website for details.
+Use this file for practice with the **multivariate viz** in-class activity.  Refer to the class website for details.
 
 # Review
 ```{r}

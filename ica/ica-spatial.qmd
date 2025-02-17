@@ -1,5 +1,397 @@
 ---
 title: "Spatial Viz"
+number-sections: false
 ---
 
 Use this file for practice with the **spatial viz** in-class activity.  Refer to the class website for details.
+
+# Review
+```{r}
+# Load tidyverse package for plotting and wrangling
+library(tidyverse)
+
+# Import the data and only keep 2 addresses
+energy <- read.csv("https://mac-stat.github.io/data/MacNaturalGas.csv") |> 
+  mutate(date = as.Date(paste0(month, "/1/", year), "%m/%d/%Y")) |> 
+  filter(address != "c")
+
+# Check it out
+head(energy)
+```
+- Construct a plot that addresses each research question
+- Include a 1-sentence summary of the plot.
+
+## Example 1
+What was the range and typical energy used each month, as measured by `therms`? How does this differ by address?
+```{r}
+ggplot(energy, aes(x = therms, color = address)) +
+  geom_density()
+```
+The range of energy use for both addresses goes from 0 to about 450. Address B has a higher peak than address A, but there generally seem to be the most months that used 0-100 therms of energy, with a secondary peak at about 350-400 therms.
+
+## Example 2
+How did energy use (`therms`) change over time (`date`) at the two addresses?
+
+# New Stuff
+
+- Types of spatial visualization:
+  - Point maps: plotting locations of individual observations
+  - Contour maps: plotting the distribution of observations
+  - Chloropleth maps: plotting outcomes in different regions
+- Can be **static** or **dynamic**
+
+# Exercises
+
+- There are two pieces to every map:
+  - A dataset (**location coordinates** for point maps or **variable coordinates** for chloropleth maps)
+  - A background map 
+- `leaflet` can be used to create interactive maps
+
+## Exercise 1
+```{r}
+fave_places <- read.csv("https://hash-mac.github.io/stat112site-s25/data/our_fave_places.csv")
+
+# Check it out
+head(fave_places)
+```
+### Part a
+```{r}
+# Load the leaflet package
+library(leaflet)
+
+# Just a plotting frame
+leaflet(data = fave_places)
+```
+```{r}
+# Now what do we have?
+# this adds the base map
+leaflet(data = fave_places) |> 
+  addTiles()
+```
+```{r}
+# Now what do we have?
+# longitude and latitude refer to the variables in our data
+# this loads the datapoints
+leaflet(data = fave_places) |> 
+  addTiles() |> 
+  addMarkers(lng = ~longitude, lat = ~latitude)
+```
+```{r}
+# Since we named them "longitude" and "latitude", the function
+# automatically recognizes these variables. No need to write them!
+leaflet(data = fave_places) |> 
+  addTiles() |> 
+  addMarkers()
+```
+### Part b
+For most places, it's possible to zoom in to street-level detail! Some places have more detail than others.
+
+## Exercise 2
+```{r}
+# Load package needed to change color
+library(gplots)
+
+# We can add colored circles instead of markers at each location
+leaflet(data = fave_places) |> 
+  addTiles() |> 
+  addCircles(color = col2hex("red"))
+```
+```{r}
+# We can change the background
+# Mark locations with yellow dots
+# And connect the dots, in their order in the dataset, with green lines
+# (These green lines don't mean anything here, but would if this were somebody's travel path!)
+leaflet(data = fave_places) |>
+  addProviderTiles("USGS") |>
+  addCircles(weight = 10, opacity = 1, color = col2hex("yellow")) |>
+  addPolylines(
+    lng = ~longitude,
+    lat = ~latitude,
+    color = col2hex("green")
+  )
+```
+
+- `addProviderTiles()` change the base map.
+  - `providers` in the console - list of options
+- `addMarkers()` and `addCircles()` mark locations.
+  - `?addControl`
+  - `weight` = thickness of the lines/points/pixels
+  - `opacity` = transparency, like `alpha`
+  - color needs to be in hex form. use `col2hex()`
+  
+## Exercise 3
+```{r}
+# Import starbucks location data
+starbucks <- read.csv("https://mac-stat.github.io/data/starbucks.csv")
+```
+```{r}
+# MN only
+# Don't worry about the syntax
+starbucks_mn <- starbucks |>   
+  filter(Country == "US", State.Province == "MN")
+```
+```{r}
+# Leaflet map of MN starbucks
+leaflet(data = starbucks_mn) |>
+  addTiles() |>
+  addMarkers()
+```
+
+## Exercise 4
+```{r}
+ggplot(starbucks, aes(x = Latitude, y = Longitude)) +
+  geom_point(alpha = 0.2, size = 0.2)
+```
+- There's no background map, so it's hard to visualize where the locations are if you don't know what the data is for.
+
+## Exercise 5
+### Part a
+```{r}
+# Load the package
+library(rnaturalearth)
+
+# Get info about country boundaries across the world
+# in a "sf" or simple feature format
+world_boundaries <- ne_countries(returnclass = "sf")
+```
+
+### Part b
+```{r}
+# What does this code produce?
+# What geom are we using for the point map?
+# This produces a world map with country boundaries; the geom is "sf" = simple feature
+ggplot(world_boundaries) + 
+  geom_sf()
+```
+```{r}
+# Load package needed to change map theme
+library(mosaic)
+
+# Add a point for each Starbucks
+# NOTE: The Starbucks info is in our starbucks data, not world_boundaries
+# How does this change how we use geom_point?!
+ggplot(world_boundaries) + 
+  geom_sf() + 
+  geom_point(
+    data = starbucks,
+    aes(x = Longitude, y = Latitude),
+    alpha = 0.3, size = 0.2, color = "darkgreen"
+  ) +
+  theme_map()
+```
+### Part c
+
+- The vast majority of Starbucks locations are in America, followed by Europe and East Asia.
+
+## Exercise 6
+Instead of world_boundaries <- ne_countries(returnclass = 'sf') we could zoom in on…
+
+- the continent of Africa: `ne_countries(continent = 'Africa', returnclass = 'sf')`
+- a set of countries: `ne_countries(country = c('france', 'united kingdom', 'germany'), returnclass = 'sf')`
+- boundaries within a country: `ne_states(country = 'united states of america', returnclass = 'sf')`
+
+Part a:
+```{r}
+# Data for starbucks in Canada, Mexico, and the US
+# We'll learn this syntax soon! Don't worry about it now.
+starbucks_cma <- starbucks |> 
+  filter(Country %in% c('CA', 'MX', 'US'))
+```
+```{r}
+cma_boundaries <- ne_states(
+  country = c("canada", "mexico", "united states of america"),
+  returnclass = "sf")
+```
+
+Part b:
+```{r}
+# Making the map
+# Just the boundaries
+ggplot(cma_boundaries) + 
+  geom_sf()
+```
+```{r}
+# Add the points
+# And zoom in
+ggplot(cma_boundaries) + 
+  geom_sf() + 
+  geom_point(
+    data = starbucks_cma,
+    aes(x = Longitude, y = Latitude),
+    alpha = 0.3,
+    size = 0.2,
+    color = "darkgreen"
+  ) +
+  coord_sf(xlim = c(-179.14, -50)) +
+  theme_map()
+```
+## Exercise 7
+Zoom in more...Minnesota, Wisconsin, North Dakota, South Dakota
+
+### Part a:
+```{r}
+# Data for Starbucks only in these states
+starbucks_midwest <- starbucks |> 
+  filter(State.Province %in% c("MN", "ND", "SD", "WI"))
+```
+```{r}
+# Load packages
+library(sf)
+library(maps)
+
+# Get the boundaries
+midwest_boundaries <- st_as_sf(
+  maps::map("county",
+            region = c("minnesota", "wisconsin", "north dakota", "south dakota"), 
+            fill = TRUE, plot = FALSE))
+
+# Check it out
+head(midwest_boundaries)
+```
+### Part b:
+```{r}
+ggplot(midwest_boundaries) + 
+  geom_sf() + 
+  geom_point(
+    data = starbucks_midwest,
+    aes(x = Longitude, y = Latitude),
+    alpha = 0.7,
+    size = 0.2, 
+    color = 'darkgreen'
+    ) + 
+  theme_map()
+```
+## Exercise 8
+When there are many overlapping points, it can be tough to visualize areas of higher density. Here is the map of Canada, Mexico, and the US, from Exercise 6:
+```{r}
+# Point map (we made this earlier)
+ggplot(cma_boundaries) + 
+  geom_sf() + 
+  geom_point(
+    data = starbucks_cma,
+    aes(x = Longitude, y = Latitude),
+    alpha = 0.3,
+    size = 0.2,
+    color = "darkgreen"
+  ) +
+  coord_sf(xlim = c(-179.14, -50), ylim = c(14.54, 83.11)) +
+  theme_map()
+```
+Now check out the Contour Map:
+```{r}
+# What changed in the plot?
+# Instead of displaying points, it now displays connected lines, like a contour height map.
+# What changed in our code?!
+# Instead of using geom_point(), we're now using geom_density_2d()
+ggplot(cma_boundaries) + 
+  geom_sf() + 
+  geom_density_2d(
+    data = starbucks_cma,
+    aes(x = Longitude, y = Latitude),
+    size = 0.2,
+    color = "darkgreen"
+  ) +
+  coord_sf(xlim = c(-179.14, -50), ylim = c(14.54, 83.11)) +
+  theme_map()
+```
+## Exercise 9
+Non-spatial data:
+```{r}
+# State and county level data on elections
+elections_by_state <-  read.csv("https://mac-stat.github.io/data/election_2020_by_state.csv")
+elections_by_counties <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+```
+Wrangle this data to present what we're interested in: overall outcome by region, rather than geographic location of observations.
+```{r}
+# Don't worry about the code!
+
+elections_by_state <- elections_by_state |> 
+  filter(state_abbr != "DC") |> 
+  select(state_name, state_abbr, repub_pct_20) |> 
+  mutate(repub_20_categories = 
+           cut(repub_pct_20, 
+               breaks = seq(30, 70, by = 5), 
+               labels = c("30-34", "35-39", "40-44", "45-49",
+                          "50-54", "55-59", "60-64", "65-70"), 
+               include.lowest = TRUE))
+
+elections_by_counties <- elections_by_counties |> 
+  select(state_name, state_abbr, county_name, county_fips,
+          repub_pct_20, median_age, median_rent) |> 
+  mutate(repub_20_categories = 
+           cut(repub_pct_20, 
+               breaks = seq(0, 100, by = 10),
+               labels = c("0-9", "10-19", "20-29", "30-39", "40-49",
+                          "50-59", "60-69", "70-79", "80-89", "90-100"),
+               include.lowest = TRUE))
+```
+
+### Part a:
+To map the 2020 Republican support in each state (`repub_pct_20`), we need two pieces of information:
+
+- Data on elections in each state (`elections_by_state`)
+- A background map of state boundaries in the US
+```{r}
+# Get the latitude and longitude coordinates of state boundaries
+states_map <- map_data("state")
+
+# Check it out
+head(states_map)
+```
+### Part b:
+```{r}
+# Note where the dataset, elections_by_state, is used
+# Note where the background map, states_map, is used
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_pct_20)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map() 
+```
+```{r}
+# Make it nicer!
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_pct_20)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map() + 
+  scale_fill_gradientn(name = "% Republican", colors = c("blue", "purple", "red"), values = scales::rescale(seq(0, 100, by = 5)))
+```
+```{r}
+# plotting the discretized version, repub_20_categories
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map()
+```
+```{r}
+# Load package needed for refining color palette
+library(RColorBrewer)
+
+# Now fix the colors
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map() + 
+  scale_fill_manual(values = rev(brewer.pal(8, "RdBu")), name = "% Republican")
+```
+### Part c:
+```{r}
+# Get only the starbucks data from the US
+starbucks_us <- starbucks |> 
+  filter(Country == "US")
+
+# Map it
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories)) +
+  geom_map(map = states_map) +
+  geom_point(
+    data = starbucks_us,
+    aes(x = Longitude, y = Latitude),
+    size = 0.05,
+    alpha = 0.2,
+    inherit.aes = FALSE
+  ) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map() + 
+  scale_fill_manual(values = rev(brewer.pal(8, "RdBu")), name = "% Republican")
+```
+
+
