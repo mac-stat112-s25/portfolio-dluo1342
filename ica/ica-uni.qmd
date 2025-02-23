@@ -107,4 +107,95 @@ Part a:
 - 6 hikes have an elevation between 4500 and 4700 feet.
 - 2 hikes have an elevation of at least 5100 feet.
 
+Part b:
+
+- The center of the data points is around 4500 feet. 
+- The range of elevation go from about 3500 feet to about 5600 feet. They are generally fairly evenly distributed.
+- The distribution is symmetric. 
+- There are no particularly significant outliers.
+
+# Exercise 8
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram()
+```
+# Exercise 9
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# 'geom_histogram()' creates histogram layer on the plotting frame
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram()
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# 'color' changes the Outline color to white
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white") 
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# 'fill' changes the fill color to blue
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", fill = "blue") 
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# 'labs' add labels to the graph
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white") +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# 'binwidth' changes the width of 'bins'/categories
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 1000) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# another change to bin width
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 5) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+# another change to bin width
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 200) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+# Exercise 10
+
+- `geom_histogram()` added the histogram layer
+- `color` affects the outline color, while `fill` affects the fill color
+- `color = "white"` creates an outline around each bar, making the division between bars more visible
+- `binwidth` changes how wide the bars are
+- If `binwidth` is too big, the histogram loses meaning as too many data points fall within the same category
+- If `binwidth` is too small, the histogram becomes similar to a bar graph, and is ineffectual for displaying a large number of varying datapoints because it is too specific.
+
+# Exercise 11
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density()
+```
+- `geom_density(color = "blue")` will change the color of the density line to blue
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density(color = "blue")
+```
+
+- `geom_density(fill = "orange")` will change the color of the area under the density line
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density(fill = "orange")
+```
+# Exercise 12
+
+- Histograms make it easier to visualize the exact *number* of cases in each category range, while density plots make it easier to visualize the *percentage* of cases in each category range.
+
+# Exercise 13
+
+- Indenting code makes it more legible, and shows which functions are subordinate to another. Similarly, line breaks prevents all the code from clumping on one layer, instead giving each function its own distinct line (and purpose)
 

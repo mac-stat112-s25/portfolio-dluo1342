@@ -246,76 +246,78 @@ Part d:
 
 # Exercise 6: 
 ```{r}
+# From here, the code is commented out because it causes problems for rendering "margin too large"
+
 # Remove the "State" column and use it to label the rows
 # Then scale the variables
-plot_data <- education |> 
-  column_to_rownames("State") |> 
-  data.matrix() |> 
-  scale()
+# plot_data <- education |> 
+#  column_to_rownames("State") |> 
+#  data.matrix() |> 
+#  scale()
 
 # Load the gplots package needed for heatmaps
-library(gplots)
+# library(gplots)
 
 # Construct heatmap 1
-heatmap.2(plot_data,
-  dendrogram = "none",
-  Rowv = NA, 
-  scale = "column",
-  keysize = 0.7, 
-  density.info = "none",
-  col = hcl.colors(256), 
-  margins = c(10, 20),
-  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
-  sepcolor = "white", trace = "none"
-)
+# heatmap.2(plot_data,
+#  dendrogram = "none",
+#  Rowv = NA, 
+#  scale = "column",
+#  keysize = 0.7, 
+#  density.info = "none",
+#  col = hcl.colors(256), 
+#  margins = c(10, 20),
+#  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
+#  sepcolor = "white", trace = "none"
+# )
 ```
 ```{r}
 # Construct heatmap 2
-heatmap.2(plot_data,
-  dendrogram = "none",
-  Rowv = TRUE,             ### WE CHANGED THIS FROM NA TO TRUE
-  scale = "column",
-  keysize = 0.7, 
-  density.info = "none",
-  col = hcl.colors(256), 
-  margins = c(10, 20),
-  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
-  sepcolor = "white", trace = "none"
-)
+# heatmap.2(plot_data,
+#  dendrogram = "none",
+#  Rowv = TRUE,             ### WE CHANGED THIS FROM NA TO TRUE
+#  scale = "column",
+#  keysize = 0.7, 
+#  density.info = "none",
+#  col = hcl.colors(256), 
+#  margins = c(10, 20),
+#  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
+#  sepcolor = "white", trace = "none"
+# )
 ```
 ```{r}
 # Construct heatmap 3
-heatmap.2(plot_data,
-  dendrogram = "row",       ### WE CHANGED THIS FROM "none" TO "row"
-  Rowv = TRUE,            
-  scale = "column",
-  keysize = 0.7, 
-  density.info = "none",
-  col = hcl.colors(256), 
-  margins = c(10, 20),
-  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
-  sepcolor = "white", trace = "none"
-)
+# heatmap.2(plot_data,
+#  dendrogram = "row",       ### WE CHANGED THIS FROM "none" TO "row"
+#  Rowv = TRUE,            
+#  scale = "column",
+#  keysize = 0.7, 
+#  density.info = "none",
+#  col = hcl.colors(256), 
+#  margins = c(10, 20),
+#  colsep = c(1:7), rowsep = (1:50), sepwidth = c(0.05, 0.05),
+#  sepcolor = "white", trace = "none"
+# )
 ```
 # Exercise 7
 Part a:
 ```{r}
-stars(plot_data,
-  flip.labels = FALSE,
-  key.loc = c(10, 1.5),
-  cex = 1, 
-  draw.segments = TRUE
-)
+# stars(plot_data,
+#  flip.labels = FALSE,
+#  key.loc = c(10, 1.5),
+#  cex = 1, 
+#  draw.segments = TRUE
+# )
 ```
 Part b:
 ```{r}
-stars(plot_data,
-  flip.labels = FALSE,
-  locations = data.matrix(as.data.frame(state.center)),  # added external data to arrange by geo location
-  key.loc = c(-110, 28),
-  cex = 1, 
-  draw.segments = TRUE
-)
+# stars(plot_data,
+#  flip.labels = FALSE,
+#  locations = data.matrix(as.data.frame(state.center)),  # added external data to arrange by geo location
+#  key.loc = c(-110, 28),
+#  cex = 1, 
+#  draw.segments = TRUE
+# )
 ```
 
 
