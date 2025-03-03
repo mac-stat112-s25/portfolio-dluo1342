@@ -1,0 +1,226 @@
+---
+title: "Reshaping"
+number-sections: false
+---
+
+Use this file for practice with the **reshaping** in-class activity.  Refer to the class website for details.
+
+# Review
+## Example 1
+```{r}
+library(tidyverse)
+penguins <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-28/penguins.csv')
+```
+
+
+## Example 2
+```{r}
+# Using count()
+
+
+# Using group_by() and summarize()
+```
+
+```{r}
+penguin_avg <- penguins |> 
+  group_by(species, sex) |> 
+  summarize(avg_body_mass = mean(body_mass_g, na.rm = TRUE)) |> 
+  na.omit()
+```
+
+## Example 3
+```{r}
+# Units of observation = 6
+head(penguins)
+```
+```{r}
+# Units of observation = 6
+head(penguin_avg)
+```
+- It doesn't seem that any data is lost; it is just changed into a different format.
+
+# Reshaping Data
+Types of data reshaping:
+
+- Aggregate data
+  - `groupby()` + `summarize()` gives aggregate information, but loses individual data
+- Raw data (reshaped)
+  - Retains all information
+
+## Example 4
+```{r}
+penguin_avg
+# make "male" and "female" their own columns
+```
+
+
+## Example 5
+```{r}
+penguin_avg |> 
+pivot_wider(names_from = sex, values_from = avg_body_mass)
+```
+- units of observation: 3
+- we did not lose any information.
+- on average, females have less body size than males.
+
+## Example 6
+```{r}
+penguin_avg_wide <- penguin_avg |> 
+  pivot_wider(names_from = sex, values_from = avg_body_mass)
+
+penguin_avg_wide
+```
+```{r}
+# We can either communicate which variables we WANT to collect into a single column (female, male)
+penguin_avg_wide |> 
+  pivot_longer(cols = c(female, male), names_to = "sex", values_to = "avg_body_mass")
+```
+```{r}
+# Or which variable(s) we do NOT want to collect into a single column (species)
+penguin_avg_wide |> 
+  pivot_longer(cols = -species, names_to = "sex", values_to = "avg_body_mass")
+```
+
+- units of observation: 6
+- we did not lose any information.
+- here, the variables are in parenthesis because its new input information (naming the new columns), while with `pivot_wider()` they're variables that already exist within the table and are being called on.
+
+## Example 7
+```{r}
+food <- data.frame(
+  customer = rep(c("A", "B"), each = 3),
+  restaurant = rep(c("Shish", "FrenchMeadow", "DunnBros"), 2),
+  order = c("falafel", "salad", "coffee", "baklava", "pastry", "tea")
+)
+food
+```
+```{r}
+# Wrangle this data so that the units of observation are customers, spreading the restaurants into separate columns.
+food |>
+  pivot_wider(names_from = restaurant, values_from = order)
+```
+
+
+```{r}
+more_food <- data.frame(
+  customer = c("C", "D"),
+  Shish = c("coffee", "maza"),
+  FrenchMeadow = c("soup", "sandwich"),
+  DunnBros = c("cookie", "coffee")
+)
+more_food
+```
+```{r}
+# Wrangle this data so that the 3 restaurant columns are combined into 1, hence the units of observation are customer / restaurant combinations.
+more_food |>
+  pivot_longer(cols = -customer, names_to = "restaurant", values_to = "order")
+```
+
+# Exercises
+## Exercise 1
+```{r}
+sleep_wide <- read.csv("https://mac-stat.github.io/data/sleep_wide.csv")
+
+head(sleep_wide)
+```
+### Part a:
+
+- Units of observation: 18
+
+### Part b:
+Plot each subject’s reaction time (y-axis) vs the number of days of sleep restriction (x-axis).
+Plotting frame:
+
+- ggplot(sleep, aes(y = reaction_time, x = days, color = subject))
+
+Therefore, the table needs to be made longer so that all the days are in the same column.
+
+## Exercise 2
+### Part a:
+```{r}
+sleep_wide |>
+  pivot_longer(cols = -Subject, names_to = "days", values_to = "reaction_time") |>
+  head(3)
+```
+### Part b:
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time")
+
+head(sleep_long)
+```
+- This code added "names_prefix", which removes the prefix to the variables - in this case "day_".
+- The values in the "day" column are just numerical now.
+
+### Part c:
+```{r}
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) +
+  geom_line()
+```
+- "Subject" is a quantitative variable - we want it to be categorical
+- "Day" is a categorical variable - we want it to be quantitative
+
+## Exercise 3
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time") |> 
+  mutate(Subject = as.factor(Subject), day = as.numeric(day))
+
+# Check it out
+# Same data, different class
+head(sleep_long)
+```
+### Part a:
+```{r}
+# Make a line plot of reaction time by day for each subject
+# Put these all on the same frame
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) +
+  geom_line()
+```
+```{r}
+# Make a line plot of reaction time by day for each subject
+# Put these all on separate frames (one per subject)
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) +
+  geom_line() +
+  facet_wrap(facets = ~Subject)
+```
+
+### Part b:
+
+- Generally, it seems that the less sleep a person has, the higher their reaction time is.
+- There are some exceptions (332 and 335), and there's variance between each person's reaction time.
+
+## Exercise 4
+### Part a:
+```{r}
+sleep_long |>
+   pivot_wider(names_from = day, values_from = reaction_time) |> 
+   head()
+```
+- Because we removed the "day_" prefix, the column labels are just numbers now, which can be confusing.
+
+### Part b:
+```{r}
+sleep_long |>
+  pivot_wider(names_from = day, values_from = reaction_time, names_prefix = "day_") |> 
+  head()
+```
+
+## Exercise 5
+```{r}
+# Load data
+library(tidyr)
+data("billboard")
+
+# Check it out
+head(billboard)
+```
+### Part a:
+
+
