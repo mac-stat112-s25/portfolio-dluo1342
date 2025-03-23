@@ -2,4 +2,31 @@
 title: "Univariate Viz"
 ---
 
-Use this file to generate a professional looking **univariate** visualization. The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+Use this file to generate a professional looking **univariate** visualization. The visualization will not be perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+```{r}
+# load necessary packages
+library(tidyverse)
+library(openintro)
+library(ggthemes)
+library(viridis)
+library(leaflet)
+library(gplots)
+```
+
+```{r}
+# Import Data
+hikes <- read.csv("https://mac-stat.github.io/data/high_peaks.csv")
+```
+
+```{r}
+#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from [GitHub](https://mac-stat.github.io/data/high_peaks.csv)"
+#| fig-alt: "Bar graph of hiking trail elevation, spanning a range of about 3700 to 5500 feet. The distribution mostly follows that of a bell curve, with the most hikes around 4500 feet."
+#| fig-width: 5
+#| fig-height: 3
+
+# Graph
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", fill = "darkslategray4") +
+  labs(title = "Distribution of Hiking Trail Elevation", x = "Elevation (feet)", y = "Number of Trails")
+```
+

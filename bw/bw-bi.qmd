@@ -2,4 +2,31 @@
 title: "Bivariate Viz"
 ---
 
-Use this file to generate a professional looking **bivariate** visualization.  The visualization will not perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.
+Use this file to generate a professional looking **bivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+# load necessary packages
+library(tidyverse)
+library(openintro)
+library(ggthemes)
+library(viridis)
+library(leaflet)
+library(gplots)
+```
+
+```{r}
+# Import Dataset
+tuesdata <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/exped_tidy.csv")
+```
+
+```{r}
+#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-21/readme.md)"
+#| fig-alt: "Proportional bar graph for number of Himalaya expeditions in each season and their outcomes. Each bar has colored segments corresponding to each expedition result. Even proportionally, Spring and Autumn have the highest amount of main peak and subpeak successes, while Summer and Winter have high amounts of termination due to bad conditions or weather."
+#| fig-width: 10
+#| fig-height: 5
+
+ggplot(tuesdata, aes(x = SEASON_FACTOR, fill = TERMREASON_FACTOR)) +
+  geom_bar(position = "fill") +
+  scale_fill_viridis_d(option = "turbo", direction = -1) +
+  labs(title = "Seasons and Results of Attempted Himalaya Climbs", x = "Season", y = "% Climbs", fill = "Result")
+```
