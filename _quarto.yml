@@ -30,6 +30,14 @@ book:
       - bw/bw-tri.qmd
       - bw/bw-quad.qmd
       - bw/bw-spatial.qmd
+      - bw/exam-1.qmd
+      - bw/exam-2.qmd
+      - bw/solo-project.qmd
+    
+    - part: "Summary Sheets"
+      chapters: 
+      - bw/ss-viz.qmd
+      - bw/ss-wrangling.qmd
 
     - part: "In-class Activities"
       chapters: 

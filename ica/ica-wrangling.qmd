@@ -1,0 +1,236 @@
+---
+title: "Wrangling"
+number-sections: false
+---
+
+Use this file for practice with the **wrangling** in-class activity.  Refer to the class website for details.
+
+
+
+# Introduction
+
+```{r}
+# Load libraries and datasets
+library(tidyverse)
+elections <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+```
+
+The goals of **data wrangling** is to explore how to:
+
+- Get data into the tidy shape / format we need for analysis. For example, we might want to:
+  - keep only certain observations
+  - define new variables
+  - reformat or “clean” existing variables
+  - combine various datasets
+  - process “string” or text data
+- Numerically (not just visually) explore and summarize various characteristics of the variables in our dataset.
+
+# Six Main Verbs
+
+- `arrange`: **arrange** the *rows* according to some *column*
+- `filter`: **filter** out or obtain a subset of the *rows*
+- `select`: **select** a subset of *columns*
+- `mutate`: **mutate** or create a *column*
+- `summarize`: calculate a numerical **summary** of a *column*
+- `group_by`: **group** the *rows* by a specified *column*
+
+## Example 1
+
+- `select`: keep only information about state names, county names, and the 2020 and 2016 Democratic support (not the 2012 results, demographics, etc)
+- `filter`: get only the data on Minnesota
+- `summarize`: define a new variable which calculates the change in Democratic support from 2016 to 2020, using dem_pct_20 and dem_pct_16
+- `arrange`: sort the counties from highest to lowest Democratic support
+- `summarize`: determine the total number of votes cast across all counties
+
+## Example 2
+Let's simplify the dataset by selecting certain columns:
+```{r}
+# What's the first argument? The second?
+# select(dataset, c(col1, col2, col3))
+select(elections, c(state_name, county_name, dem_pct_20, dem_pct_16))
+```
+
+With the pipe function:
+```{r}
+elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16)
+```
+
+`|>` “passes” **objects**, usually datasets, to a *function*:
+`object |> function()` is the same as `function(object)`.
+
+## Example 3
+Let's `filter` out the rows related to MN:
+```{r}
+# Without a pipe
+filter(elections, state_name == "Minnesota")
+
+# With a pipe
+elections |> 
+  filter(state_name == "Minnesota")
+```
+
+We use `a == b` to check whether a *matches* b.
+We use `a = b` to define that a is *equal* to b. We typically use `=` for this purpose inside a function, and `<-` for this purpose outside a function.
+
+## Example 4
+Let's combine `filter` and `select` to create a new dataset with the specific information:
+```{r}
+# Without pipes
+filter(select(elections, c(state_name, county_name, dem_pct_20, dem_pct_16)), state_name == "Minnesota")
+
+# With pipes: all verbs in 1 row
+elections |> select(state_name, county_name, dem_pct_20, dem_pct_16) |> filter(state_name == "Minnesota")
+
+# With pipes: each verb in a new row
+elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  filter(state_name == "Minnesota")
+
+# We can even do this with UN-tidyverse code in "base" R
+elections[elections$state_name == "Minnesota", c(1, 4, 8, 12)]
+```
+
+Tidyverse code is much easier to comprehend, without needing to see the dataset individually, and looks neater. With new rows, and pipes, the code looks much nicer and understandable at a glance than the other options.
+
+## Example 5
+Does the order of operations matter? Above, we used `select`, then `filter`. What about the other way around?
+```{r}
+elections |> 
+  filter(state_name == "Minnesota") |>
+  select(state_name, county_name, dem_pct_20, dem_pct_16)
+```
+
+## Example 6
+Typically we want to store our data wrangling results. It’s good practice to do so under a new name. We want to preserve, thus don’t want to overwrite, the original data (especially if our code contains errors!!).
+```{r}
+# Store the results
+mn <- elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  filter(state_name == "Minnesota")
+
+# Always check it out to confirm it's what you want it to be!
+head(mn)
+nrow(mn)
+nrow(elections)
+```
+
+# Exercises
+
+## Exercise 1: 
+Use `select()` to create a simplified dataset that we’ll use throughout the exercises below.
+
+- Store this dataset as `elections_small`.
+- Only keep the following variables: `state_name`, `county_name`, `total_votes_20`, `repub_pct_20`, `dem_pct_20`, `total_votes_16`, `dem_pct_16`
+```{r}
+# Define elections_small
+elections_small <- elections |>
+  select(state_name, county_name, total_votes_20, repub_pct_20, dem_pct_20, total_votes_16, dem_pct_16)
+
+# Check out the first 6 rows to confirm your code did what you think it did!
+head(elections_small)
+```
+
+## Exercise 2
+Whereas `select()` selects certain *variables* or columns, `filter()` keeps certain *units of observation* or rows relative to their outcome on certain variables. To this end, we must:
+
+- Identify the variable(s) that are relevant to the filter.
+- Use a “logical comparison operator” to define which values of the variable to keep.
+
+```{r}
+# Keep only data on counties in Hawaii
+elections_small |>
+ filter(state_name == "Hawaii")
+```
+```{r}
+# What does this do?
+# Keep data from multiple values: in this case, Hawaii and Delaware
+elections_small |>
+  filter(state_name %in% c("Hawaii", "Delaware"))
+```
+```{r}
+# Keep only data on counties where the Republican got MORE THAN 93.97% of the vote in 2020
+# THINK: What variable is relevant here?
+elections_small |>
+  filter(repub_pct_20 > 93.97)
+```
+```{r}
+# Keep only data on counties where the Republican got AT LEAST 93.97% of the vote in 2020
+# This should have 1 more row (observation) than your answer above
+elections_small |>
+  filter(repub_pct_20 >= 93.97)
+```
+```{r}
+# Keep only data on counties in Texas where the Democrat got more than 65% of the vote in 2020
+# Do this 2 ways.
+# Method 1: 2 filters with 1 condition each
+elections_small |>
+ filter(state_name == "Texas") |>
+ filter(dem_pct_20 > 65)
+
+# Method 2: 1 filter with 2 conditions
+elections_small |>
+  filter(state_name == "Texas", dem_pct_20 > 65)
+```
+
+## Exercise 3
+`arrange()` arranges or sorts the rows in a dataset according to a given column or variable, in ascending or descending order: `arrange(variable)`, `arrange(desc(variable))`.
+```{r}
+# Arrange the counties in elections_small from lowest to highest percentage of 2020 Republican support
+# Print out just the first 6 rows
+elections_small |>
+  arrange(repub_pct_20) |>
+  head()
+
+# Arrange the counties in elections_small from highest to lowest percentage of 2020 Republican support
+# Print out just the first 6 rows
+elections_small |>
+  arrange(desc(repub_pct_20)) |>
+  head()
+```
+
+## Exercise 4
+`mutate()` can either transform / mutate an existing variable (column), or define a new variable based on existing ones.
+
+### Part a:
+```{r}
+# What did this code do?
+# adds a variable/column, diff_20, which is the difference between repub_pct_20 and dem_pct_20
+elections_small |>
+  mutate(diff_20 = repub_pct_20 - dem_pct_20) |>
+  head()
+```
+```{r}
+# What did this code do?
+# adds a variable/column, repub_votes_20, which calculates the numerical number of votes given to a republican candidate using total_votes_20 and the percentage
+elections_small |>
+  mutate(repub_votes_20 = round(total_votes_20 * repub_pct_20/100)) |>
+  head()
+```
+```{r}
+# What did this code do?
+elections_small |>
+  mutate(repub_win_20 = repub_pct_20 > dem_pct_20) |>
+  head()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

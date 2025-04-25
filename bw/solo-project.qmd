@@ -1,0 +1,27 @@
+---
+title: "Solo Project"
+---
+
+```{r}
+# Load packages
+library(tidyverse)
+library(openintro)
+library(ggthemes)
+library(viridis)
+library(leaflet)
+library(gplots)
+```
+
+```{r}
+# Import datasets
+numbats <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-03-07/numbats.csv")
+markers <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-07-04/historical_markers.csv")
+no_markers <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-07-04/no_markers.csv")
+haunted <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-10-10/haunted_places.csv")
+```
+
+```{r}
+#rnaturalearth map tests
+plot(ne_states(country = "australia"))
+plot(ne_states(country = "united states of america"))
+```
