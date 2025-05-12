@@ -1,0 +1,5 @@
+---
+title: "Wrangling Sheet"
+number-sections: false
+---
+![](https://cdn.discordapp.com/attachments/959293299301163079/1371526458924601344/IMG_6684.jpg?ex=6823750d&is=6822238d&hm=258140f77786437ebe0dbc92ad8c107133ef4e389a4221c705c7be8a16041bfe&)

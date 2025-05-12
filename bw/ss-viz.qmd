@@ -1,0 +1,5 @@
+---
+title: "Visualization Sheet"
+number-sections: false
+---
+![](https://cdn.discordapp.com/attachments/959293299301163079/1371526458325078216/IMG_6683.jpg?ex=6823750d&is=6822238d&hm=eddf46908fdf03397493b22b5d3cee21073e3e61f73c0ccdd0d0288c3037eba7&)

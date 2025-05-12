@@ -1,5 +1,45 @@
 ---
 title: "Quadvariate Viz"
+execute: 
+  echo: false      # change to true to show the code
+code-fold: false  # change to true to fold the code chunks
 ---
 
 Use this file to generate a professional looking **quadvariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+# Load Packages
+library(tidyverse)
+library(openintro)
+library(ggthemes)
+library(viridis)
+library(leaflet)
+library(gplots)
+library(mosaic)
+library(fivethirtyeight)
+```
+
+```{r}
+# Create & Process data
+data("Birthdays")
+daily_births <- Birthdays |> 
+  group_by(date) |> 
+  summarize(births = sum(births)) |> 
+  mutate(year = year(date), 
+         month = month(date, label = TRUE),
+         day_of_month = mday(date),
+         day_of_week = wday(date, label = TRUE))
+```
+
+```{r}
+#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from the **Mosaic** package."
+#| fig-alt: "Scatterpoint graph of birth numbers from about 1968 to 1988, with the points colored by day of the week, divided into 12 graphs for each month. Birth numbers spiked in the early 1970s before declining until 1975, after which they have been steadily increasing. Notably, there are many more births in number and trend on weekdays than weekends. The trend is less concrete in holiday months like December."
+#| fig-width: 8
+#| fig-height: 5
+# Graph
+ggplot(daily_births, aes(y = births, x = date, color = day_of_week)) +
+  geom_point(alpha = 0.6) + 
+  scale_color_viridis_d(option = "viridis") +
+  facet_wrap(~ month) + 
+  labs(title = "Birthrate by Month", x = "Year", y = "# of Births", color = "Day of the Week")
+```

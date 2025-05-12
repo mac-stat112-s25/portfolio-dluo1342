@@ -1,5 +1,8 @@
 ---
 title: "Bivariate Viz"
+execute: 
+  echo: false      # change to true to show the code
+code-fold: false  # change to true to fold the code chunks
 ---
 
 Use this file to generate a professional looking **bivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.

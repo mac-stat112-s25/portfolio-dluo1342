@@ -1,0 +1,33 @@
+---
+title: "Exam 1"
+number-sections: false
+---
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+```
+
+```{r}
+# data import
+tuesdata <- tt_load("2020-02-18")
+fc <- tuesdata$food_consumption
+
+# examine the data
+names(fc)
+nrow(fc)
+ncol(fc)
+str(fc)
+
+head(fc, 22)
+tail(fc, 22)
+```
+
+```{r}
+# understanding variables individually
+# the RQ involves 3 variables: consumption, food category, country
+
+# consumption (quantitative)
+ggplot(fc, aes(x = consumption)) + 
+  geom_density()
+```
+

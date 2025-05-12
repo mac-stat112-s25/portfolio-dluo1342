@@ -22,6 +22,6 @@ haunted <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesd
 
 ```{r}
 #rnaturalearth map tests
-plot(ne_states(country = "australia"))
-plot(ne_states(country = "united states of america"))
+# plot(ne_states(country = "australia"))
+# plot(ne_states(country = "united states of america"))
 ```
