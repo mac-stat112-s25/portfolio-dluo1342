@@ -30,4 +30,32 @@ tail(fc, 22)
 ggplot(fc, aes(x = consumption)) + 
   geom_density()
 ```
+```{r}
+# understanding consumption
+# moving from uni into bivar viz
 
+# consumption (quantitative) / food category (categorical)
+ggplot(fc, aes(y = consumption)) + 
+  geom_histogram() + 
+  facet_wrap(~food_category)
+```
+
+
+```{r}
+#| fig-height: 22
+#| fig-width: 11
+# consumption (quantitative) / country (categorical)
+ggplot(fc, aes(y = consumption)) + 
+  geom_histogram(aes(fill = country))
+
+ggplot(fc, aes(y = consumption, x = country)) + 
+  geom_boxplot()
+```
+```{r}
+#| fig-height: 22
+#| fig-width: 11
+# incorporating all three variables
+ggplot(fc, aes(x = consumption)) + 
+  geom_histogram(aes(fill = food_category)) + 
+  facet_wrap(~country)
+```
