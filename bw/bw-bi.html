@@ -183,13 +183,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/exam-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">exam-1.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exam 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/exam-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">exam-2.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exam 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -212,13 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/ss-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ss-viz.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization Sheet</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/ss-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ss-wrangling.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Wrangling Sheet</span></span></a>
   </div>
 </li>
       </ul>
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/ica-dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ica-dates.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -315,8 +315,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><p>Use this file to generate a professional looking <strong>bivariate</strong> visualization. The visualization will not be perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load necessary packages</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -327,24 +325,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(openintro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: airports
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+Loading required package: airports
+
 Loading required package: cherryblossom
-Loading required package: usdata</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: viridisLite</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(gplots)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
+
+Loading required package: usdata
+
+Loading required package: viridisLite
+
+
 Attaching package: 'gplots'
+
 
 The following object is masked from 'package:stats':
 
@@ -352,14 +344,6 @@ The following object is masked from 'package:stats':
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Import Dataset</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/exped_tidy.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(tuesdata, <span class="fu">aes</span>(<span class="at">x =</span> SEASON_FACTOR, <span class="at">fill =</span> TERMREASON_FACTOR)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"turbo"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Seasons and Results of Attempted Himalaya Climbs"</span>, <span class="at">x =</span> <span class="st">"Season"</span>, <span class="at">y =</span> <span class="st">"% Climbs"</span>, <span class="at">fill =</span> <span class="st">"Result"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="bw-bi_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" alt="Proportional bar graph for number of Himalaya expeditions in each season and their outcomes. Each bar has colored segments corresponding to each expedition result. Even proportionally, Spring and Autumn have the highest amount of main peak and subpeak successes, while Summer and Winter have high amounts of termination due to bad conditions or weather." width="960"></p>
@@ -1002,38 +986,41 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="an">title:</span><span class="co"> "Bivariate Viz"</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">---</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a></span>
-<span id="cb11-5"><a href="#cb11-5"></a>Use this file to generate a professional looking **bivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.</span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="in">```{r}</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># load necessary packages</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="fu">library</span>(openintro)</span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb11-15"><a href="#cb11-15"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb11-16"><a href="#cb11-16"></a><span class="fu">library</span>(gplots)</span>
-<span id="cb11-17"><a href="#cb11-17"></a><span class="in">```</span></span>
-<span id="cb11-18"><a href="#cb11-18"></a></span>
-<span id="cb11-21"><a href="#cb11-21"></a><span class="in">```{r}</span></span>
-<span id="cb11-22"><a href="#cb11-22"></a><span class="co"># Import Dataset</span></span>
-<span id="cb11-23"><a href="#cb11-23"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/exped_tidy.csv"</span>)</span>
-<span id="cb11-24"><a href="#cb11-24"></a><span class="in">```</span></span>
-<span id="cb11-25"><a href="#cb11-25"></a></span>
-<span id="cb11-28"><a href="#cb11-28"></a><span class="in">```{r}</span></span>
-<span id="cb11-29"><a href="#cb11-29"></a><span class="co">#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-21/readme.md)"</span></span>
-<span id="cb11-30"><a href="#cb11-30"></a><span class="co">#| fig-alt: "Proportional bar graph for number of Himalaya expeditions in each season and their outcomes. Each bar has colored segments corresponding to each expedition result. Even proportionally, Spring and Autumn have the highest amount of main peak and subpeak successes, while Summer and Winter have high amounts of termination due to bad conditions or weather."</span></span>
-<span id="cb11-31"><a href="#cb11-31"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb11-32"><a href="#cb11-32"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb11-33"><a href="#cb11-33"></a></span>
-<span id="cb11-34"><a href="#cb11-34"></a><span class="fu">ggplot</span>(tuesdata, <span class="fu">aes</span>(<span class="at">x =</span> SEASON_FACTOR, <span class="at">fill =</span> TERMREASON_FACTOR)) <span class="sc">+</span></span>
-<span id="cb11-35"><a href="#cb11-35"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb11-36"><a href="#cb11-36"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"turbo"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb11-37"><a href="#cb11-37"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Seasons and Results of Attempted Himalaya Climbs"</span>, <span class="at">x =</span> <span class="st">"Season"</span>, <span class="at">y =</span> <span class="st">"% Climbs"</span>, <span class="at">fill =</span> <span class="st">"Result"</span>)</span>
-<span id="cb11-38"><a href="#cb11-38"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "Bivariate Viz"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">  echo: false      # change to true to show the code</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="an">code-fold:</span><span class="co"> false  # change to true to fold the code chunks</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">---</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>Use this file to generate a professional looking **bivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="in">```{r}</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># load necessary packages</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="in">```</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="in">```{r}</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co"># Import Dataset</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/exped_tidy.csv"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="in">```</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="in">```{r}</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-21/readme.md)"</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#| fig-alt: "Proportional bar graph for number of Himalaya expeditions in each season and their outcomes. Each bar has colored segments corresponding to each expedition result. Even proportionally, Spring and Autumn have the highest amount of main peak and subpeak successes, while Summer and Winter have high amounts of termination due to bad conditions or weather."</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="fu">ggplot</span>(tuesdata, <span class="fu">aes</span>(<span class="at">x =</span> SEASON_FACTOR, <span class="at">fill =</span> TERMREASON_FACTOR)) <span class="sc">+</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"turbo"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Seasons and Results of Attempted Himalaya Climbs"</span>, <span class="at">x =</span> <span class="st">"Season"</span>, <span class="at">y =</span> <span class="st">"% Climbs"</span>, <span class="at">fill =</span> <span class="st">"Result"</span>)</span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

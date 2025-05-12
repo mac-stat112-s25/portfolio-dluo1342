@@ -183,13 +183,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/exam-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">exam-1.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exam 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/exam-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">exam-2.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exam 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -212,13 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/ss-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ss-viz.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization Sheet</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bw/ss-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ss-wrangling.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Wrangling Sheet</span></span></a>
   </div>
 </li>
       </ul>
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ica/ica-dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ica-dates.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -315,8 +315,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><p>Use this file to generate a professional looking <strong>trivariate</strong> visualization. The visualization will not be perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load Packages</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -327,82 +325,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(openintro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: airports
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+Loading required package: airports
+
 Loading required package: cherryblossom
-Loading required package: usdata</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: viridisLite</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(gplots)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
+
+Loading required package: usdata
+
+Loading required package: viridisLite
+
+
 Attaching package: 'gplots'
+
 
 The following object is masked from 'package:stats':
 
-    lowess</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'mosaic':
+    lowess
+
+
+Registered S3 method overwritten by 'mosaic':
   method                           from   
   fortify.SpatialPolygonsDataFrame ggplot2
+
 
 The 'mosaic' package masks several functions from core packages in order to add 
 additional features.  The original behavior of these functions should not be affected by this.
 
+
 Attaching package: 'mosaic'
+
 
 The following object is masked from 'package:Matrix':
 
     mean
 
+
 The following object is masked from 'package:ggthemes':
 
     theme_map
+
 
 The following object is masked from 'package:openintro':
 
     dotPlot
 
+
 The following objects are masked from 'package:dplyr':
 
     count, do, tally
+
 
 The following object is masked from 'package:purrr':
 
     cross
 
+
 The following object is masked from 'package:ggplot2':
 
     stat
+
 
 The following objects are masked from 'package:stats':
 
     binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
     quantile, sd, t.test, var
 
+
 The following objects are masked from 'package:base':
 
-    max, mean, min, prod, range, sample, sum</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some larger datasets need to be installed separately, like senators and
+    max, mean, min, prod, range, sample, sum
+
+
+Some larger datasets need to be installed separately, like senators and
 house_district_forecast. To install these, we recommend you install the
 fivethirtyeightdata package by running:
 install.packages('fivethirtyeightdata', repos =
 'https://fivethirtyeightdata.github.io/drat/', type = 'source')
 
+
 Attaching package: 'fivethirtyeight'
+
 
 The following object is masked from 'package:openintro':
 
@@ -410,22 +412,6 @@ The following object is masked from 'package:openintro':
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Create &amp; Process data</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">data</span>(<span class="st">"Birthdays"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>daily_births <span class="ot">&lt;-</span> Birthdays <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">group_by</span>(date) <span class="sc">|&gt;</span> </span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">summarize</span>(<span class="at">births =</span> <span class="fu">sum</span>(births)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), </span>
-<span id="cb13-7"><a href="#cb13-7"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-8"><a href="#cb13-8"></a>         <span class="at">day_of_month =</span> <span class="fu">mday</span>(date),</span>
-<span id="cb13-9"><a href="#cb13-9"></a>         <span class="at">day_of_week =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Graph</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggplot</span>(daily_births, <span class="fu">aes</span>(<span class="at">y =</span> births, <span class="at">x =</span> date, <span class="at">color =</span> day_of_week)) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Birthrate by Day of the Week"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"# of Births"</span>, <span class="at">color =</span> <span class="st">"Day of the Week"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="bw-tri_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" alt="Scatterpoint graph of birth numbers from about 1968 to 1988, with the points colored by day of the week. Birth numbers spiked in the early 1970s before declining until 1975, after which they have been steadily increasing. Notably, there are many more births in number and trend on weekdays than weekends." width="768"></p>
@@ -1068,47 +1054,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="an">title:</span><span class="co"> "Trivariate Viz"</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co">---</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a></span>
-<span id="cb15-5"><a href="#cb15-5"></a>Use this file to generate a professional looking **trivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</span>
-<span id="cb15-6"><a href="#cb15-6"></a></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="in">```{r}</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co"># Load Packages</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="fu">library</span>(openintro)</span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="fu">library</span>(gplots)</span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="fu">library</span>(mosaic)</span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="fu">library</span>(fivethirtyeight)</span>
-<span id="cb15-19"><a href="#cb15-19"></a><span class="in">```</span></span>
-<span id="cb15-20"><a href="#cb15-20"></a></span>
-<span id="cb15-23"><a href="#cb15-23"></a><span class="in">```{r}</span></span>
-<span id="cb15-24"><a href="#cb15-24"></a><span class="co"># Create &amp; Process data</span></span>
-<span id="cb15-25"><a href="#cb15-25"></a><span class="fu">data</span>(<span class="st">"Birthdays"</span>)</span>
-<span id="cb15-26"><a href="#cb15-26"></a>daily_births <span class="ot">&lt;-</span> Birthdays <span class="sc">|&gt;</span> </span>
-<span id="cb15-27"><a href="#cb15-27"></a>  <span class="fu">group_by</span>(date) <span class="sc">|&gt;</span> </span>
-<span id="cb15-28"><a href="#cb15-28"></a>  <span class="fu">summarize</span>(<span class="at">births =</span> <span class="fu">sum</span>(births)) <span class="sc">|&gt;</span> </span>
-<span id="cb15-29"><a href="#cb15-29"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), </span>
-<span id="cb15-30"><a href="#cb15-30"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb15-31"><a href="#cb15-31"></a>         <span class="at">day_of_month =</span> <span class="fu">mday</span>(date),</span>
-<span id="cb15-32"><a href="#cb15-32"></a>         <span class="at">day_of_week =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb15-33"><a href="#cb15-33"></a><span class="in">```</span></span>
-<span id="cb15-34"><a href="#cb15-34"></a></span>
-<span id="cb15-37"><a href="#cb15-37"></a><span class="in">```{r}</span></span>
-<span id="cb15-38"><a href="#cb15-38"></a><span class="co">#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from the **Mosaic** package."</span></span>
-<span id="cb15-39"><a href="#cb15-39"></a><span class="co">#| fig-alt: "Scatterpoint graph of birth numbers from about 1968 to 1988, with the points colored by day of the week. Birth numbers spiked in the early 1970s before declining until 1975, after which they have been steadily increasing. Notably, there are many more births in number and trend on weekdays than weekends."</span></span>
-<span id="cb15-40"><a href="#cb15-40"></a><span class="co">#| fig-width: 8</span></span>
-<span id="cb15-41"><a href="#cb15-41"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb15-42"><a href="#cb15-42"></a><span class="co"># Graph</span></span>
-<span id="cb15-43"><a href="#cb15-43"></a><span class="fu">ggplot</span>(daily_births, <span class="fu">aes</span>(<span class="at">y =</span> births, <span class="at">x =</span> date, <span class="at">color =</span> day_of_week)) <span class="sc">+</span></span>
-<span id="cb15-44"><a href="#cb15-44"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb15-45"><a href="#cb15-45"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
-<span id="cb15-46"><a href="#cb15-46"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Birthrate by Day of the Week"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"# of Births"</span>, <span class="at">color =</span> <span class="st">"Day of the Week"</span>)</span>
-<span id="cb15-47"><a href="#cb15-47"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "Trivariate Viz"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">  echo: false      # change to true to show the code</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="an">code-fold:</span><span class="co"> false  # change to true to fold the code chunks</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">---</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>Use this file to generate a professional looking **trivariate** visualization.  The visualization will not be perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="in">```{r}</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># Load Packages</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="fu">library</span>(fivethirtyeight)</span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="in">```</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="in">```{r}</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># Create &amp; Process data</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="fu">data</span>(<span class="st">"Birthdays"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29"></a>daily_births <span class="ot">&lt;-</span> Birthdays <span class="sc">|&gt;</span> </span>
+<span id="cb2-30"><a href="#cb2-30"></a>  <span class="fu">group_by</span>(date) <span class="sc">|&gt;</span> </span>
+<span id="cb2-31"><a href="#cb2-31"></a>  <span class="fu">summarize</span>(<span class="at">births =</span> <span class="fu">sum</span>(births)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-32"><a href="#cb2-32"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), </span>
+<span id="cb2-33"><a href="#cb2-33"></a>         <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-34"><a href="#cb2-34"></a>         <span class="at">day_of_month =</span> <span class="fu">mday</span>(date),</span>
+<span id="cb2-35"><a href="#cb2-35"></a>         <span class="at">day_of_week =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="in">```</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="in">```{r}</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="co">#| fig-cap: "Created by Dust L. for COMP112 at Macalester College. Data from the **Mosaic** package."</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="co">#| fig-alt: "Scatterpoint graph of birth numbers from about 1968 to 1988, with the points colored by day of the week. Birth numbers spiked in the early 1970s before declining until 1975, after which they have been steadily increasing. Notably, there are many more births in number and trend on weekdays than weekends."</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="co"># Graph</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="fu">ggplot</span>(daily_births, <span class="fu">aes</span>(<span class="at">y =</span> births, <span class="at">x =</span> date, <span class="at">color =</span> day_of_week)) <span class="sc">+</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb2-48"><a href="#cb2-48"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Birthrate by Day of the Week"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"# of Births"</span>, <span class="at">color =</span> <span class="st">"Day of the Week"</span>)</span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
