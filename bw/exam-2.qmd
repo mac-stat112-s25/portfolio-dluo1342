@@ -2,3 +2,118 @@
 title: "Exam 2"
 number-sections: false
 ---
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(rnaturalearth) # for country boundaries
+library(sf) # for spatial viz
+```
+
+```{r}
+# load data
+tuesdata <- tt_load("2020-02-18")
+fc <- tuesdata$food_consumption
+
+# examine the data
+str(fc)
+head(fc, 22)
+```
+
+```{r}
+# inspect variables
+distinct(fc, food_category)
+```
+```{r}
+# clean up dataset
+fcc <- fc |>
+  mutate(food_category = fct_recode(food_category,
+                                "Lamb & Goat" = "Lamb",
+                                "Milk - inc. cheese" = "Dairy",
+                                "Wheat and Wheat Products" = "Wheat",
+                                "Nuts inc. Peanut Butter" = "Nuts"))
+
+distinct(fcc, food_category)
+```
+```{r}
+# top 5 total consumption
+consumption <- fcc |>
+  group_by(country) |>
+  summarize(total_consumption = sum(consumption)) |>
+  arrange(desc(total_consumption)) |>
+  select(country) |>
+  slice_head(n = 5)
+
+head(consumption)
+
+# viz options: column
+```
+```{r}
+# top 5 consumption for each food
+fc_consumption <- fcc |>
+  group_by(food_category) |>
+  slice_max(consumption, n = 5)
+
+head(fc_consumption)
+# viz options: column, faceted/stacked/proportional bar
+```
+```{r}
+#| fig-height: 22
+#| fig-width: 11
+# chloro for consumption of each food
+# viz attempt 1: NA data, missing countries due to names not matching up
+ne_countries(returnclass = "sf") |>
+  select(name, geometry) |>
+  left_join(fcc |> select(-co2_emmission),
+            join_by(name == country)) |>
+  ggplot() + 
+  geom_sf(aes(fill = consumption)) +
+  facet_wrap(~food_category) +
+  theme(legend.position = "bottom")
+
+# viz attempt 2: large outliers drowns out other colors
+ne_countries(returnclass = "sf") |>
+  select(name, geometry) |>
+  mutate(name = ifelse(name == "United States of America", "USA", name)) |>
+  mutate(name = ifelse(name == "Bosnia and Herz.", "Bosnia and Herzegovina", name)) |>
+  mutate(name = ifelse(name == "Czechia", "Czech Republic", name)) |>
+  mutate(name = ifelse(name == "Taiwan", "Taiwan, ROC", name)) |>
+  left_join(fcc |> select(-co2_emmission),
+            join_by(name == country)) |>
+  pivot_wider(names_from = food_category,
+              values_from = consumption) |>
+  select(-"NA") |>
+  pivot_longer(cols = c(-name, -geometry),
+               names_to = "food_category",
+               values_to = "consumption") |>
+  ggplot() + 
+  geom_sf(aes(fill = consumption)) +
+  facet_wrap(~food_category) +
+  theme(legend.position = "bottom")
+
+# viz attempt 3
+ne_countries(returnclass = "sf") |>
+  select(name, geometry) |>
+  mutate(name = ifelse(name == "United States of America", "USA", name)) |>
+  mutate(name = ifelse(name == "Bosnia and Herz.", "Bosnia and Herzegovina", name)) |>
+  mutate(name = ifelse(name == "Czechia", "Czech Republic", name)) |>
+  mutate(name = ifelse(name == "Taiwan", "Taiwan, ROC", name)) |>
+  left_join(
+    fcc |> 
+      select(-co2_emmission) |>
+      group_by(food_category) |>
+      mutate(consumption = (consumption - mean(consumption))/sd(consumption)), # standardization
+    join_by(name == country)) |>
+  pivot_wider(names_from = food_category, values_from = consumption) |>
+  select(-"NA") |>
+  pivot_longer(cols = c(-name, -geometry),
+               names_to = "food_category",
+               values_to = "consumption") |>
+  ggplot() + 
+  geom_sf(aes(fill = consumption)) +
+  facet_wrap(~food_category) +
+  theme(legend.position = "bottom")
+
+# this can be further improved by discretizing -> better colors
+```
+
+
